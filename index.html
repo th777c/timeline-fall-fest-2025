@@ -143,6 +143,27 @@
       display: flex;
       margin-left: 4px;
     }
+
+    /* Start dimmed */
+.timeline ul li div {
+  opacity: 0.3;
+  transition: opacity 0.4s ease;
+}
+
+/* Brighten on hover */
+.timeline ul li div:hover {
+  opacity: 1;
+}
+
+/* Dim siblings when one is hovered */
+.timeline ul:hover li div {
+  opacity: 0.1;
+}
+
+.timeline ul li div:hover {
+  opacity: 1 !important;
+}
+
   </style>
 </head>
 <body>
@@ -205,3 +226,4 @@
   </script>
 </body>
 </html>
+
