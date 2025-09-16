@@ -143,24 +143,19 @@
       display: flex;
       margin-left: 4px;
     }
-
-    /* Start dimmed */
+/* Start dimmed */
 .timeline ul li div {
   opacity: 0.3;
   transition: opacity 0.4s ease;
 }
 
-/* Brighten on hover */
-.timeline ul li div:hover {
-  opacity: 1;
-}
-
-/* Dim siblings when one is hovered */
+/* Dim all events when hovering the timeline */
 .timeline ul:hover li div {
   opacity: 0.1;
 }
 
-.timeline ul li div:hover {
+/* Brighten the event when its parent li (node or div) is hovered */
+.timeline ul li:hover div {
   opacity: 1 !important;
 }
 
@@ -226,4 +221,5 @@
   </script>
 </body>
 </html>
+
 
