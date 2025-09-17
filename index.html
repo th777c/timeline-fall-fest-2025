@@ -7,147 +7,249 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@700&family=IBM+Plex+Sans+Condensed&display=swap" rel="stylesheet">
 
-  <!-- Font Awesome (icons) -->
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
     body {
       background: #000; /* Black background */
-      /* For galaxy effect, uncomment this: */
-      /* background: url('https://images.unsplash.com/photo-1446776811953-b23d57bd21aa') no-repeat center center fixed;
-      background-size: cover; */
       font-family: "IBM Plex Sans", sans-serif;
+      margin: 0;
+      padding: 0;
     }
 
     .container {
-      background: rgba(0,0,0,0.8); /* semi-transparent black for contrast */
-      width: 540px;
-      height: 500px;
+      width: 100%;
       margin: 0 auto;
       position: relative;
-      margin-top: 10%;
-      box-shadow: 2px 5px 20px rgba(255, 255, 255, 0.2);
-    }
-
-    .leftbox {
-      top: -5%;
-      left: 5%;
-      position: absolute;
-      width: 15%;
-      height: 110%;
-      background-color: #111;
-      box-shadow: 3px 3px 15px rgba(255, 255, 255, 0.1);
-    }
-
-    nav {
-      margin: 2.6em auto;
-    }
-
-    nav a {
-      list-style: none;
-      padding: 35px;
-      color: #fff;
-      font-size: 1.1em;
-      display: block;
-      transition: all 0.5s ease-in-out;
+      padding: 2rem 0;
     }
 
     .rightbox {
-      padding: 0em 34rem 0em 0em;
-      height: 100%;
+      width: 100%;
     }
 
-    .rb-container {
-      width: 50%;
-      margin: auto;
-      display: block;
+    .timeline-wrapper {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      max-width: 1100px;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
+    .day-column {
+      width: 48%;
       position: relative;
     }
 
     .rb-container ul.rb {
-      margin: 2.5em 0;
+      margin: 0;
       padding: 0;
-      display: inline-block;
-    }
-
-    .rb-container ul.rb li {
       list-style: none;
-      margin: auto;
-      margin-left: 10em;
-      min-height: 50px;
-      border-left: 1px dashed #fff;
-      padding: 0 0 50px 30px;
+    }
+
+    ul.rb li {
       position: relative;
+      min-height: 50px;
+      margin-bottom: 36px;
+      overflow: visible;
     }
 
-    .rb-container ul.rb li:last-child {
-      border-left: 0;
+    /* LEFT column (Day 1) */
+    .left-day ul.rb li {
+      border-left: 1px dashed #fff;
+      padding-left: 30px;
     }
-
-    .rb-container ul.rb li::before {
+    .left-day ul.rb li::before {
       position: absolute;
-      left: -18px;
-      top: -5px;
-      content: " ";
-      border: 8px solid rgba(255, 255, 255, 1);
-      border-radius: 300%;
-      background: #9b59b6; /* Node color (change this for different effect) */
+      left: -12px;
+      top: 0;
+      content: "";
+      border: 2px solid #fff;
+      border-radius: 50%;
+      background: #000;
       height: 20px;
       width: 20px;
       transition: all 500ms ease-in-out;
     }
-
-    .rb-container ul.rb li:hover::before {
-      border-color: #000;
-      transition: all 1000ms ease-in-out;
+    .left-day ul.rb li:last-child {
+      border-left: none;
     }
 
+    /* RIGHT column (Day 2) */
+    .right-day ul.rb li {
+      border-right: 1px dashed #fff;
+      padding-right: 30px;
+      text-align: right;
+    }
+    .right-day ul.rb li::before {
+      position: absolute;
+      right: -12px;
+      left: auto;
+      top: 0;
+      content: "";
+      border: 2px solid #fff; 
+      border-radius: 50%;
+      background: #000;
+      height: 20px;
+      width: 20px;
+      transition: all 500ms ease-in-out;
+    }
+    .right-day ul.rb li:last-child {
+      border-right: none;
+    }
+
+    /* Fade-in effect */
+    ul.rb li .timestamp,
+    ul.rb li .item-title {
+      opacity: 0.2;
+      transform: translateY(20px);
+      transition: all 800ms ease-in-out;
+    }
+    ul.rb li.in-view .timestamp,
+    ul.rb li.in-view .item-title {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Node highlight when in view */
+    ul.rb li.in-view::before {
+      background: #fff;
+      border-color: #111;
+      opacity: 1;
+    }
+
+    /* Timestamp and title font */
     ul.rb li .timestamp {
       color: #fff;
       font-family: "IBM Plex Sans", sans-serif;
       font-weight: 700;
-      font-size: 13px;
+      font-size: 15px;
     }
-
     .item-title {
       color: #fff;
       font-family: "IBM Plex Sans Condensed", sans-serif;
-      font-size: 15px;
+      font-size: 13px;
+    }
+
+    /* Day labels */
+    .day-label {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: "IBM Plex Sans", sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: #fff;
+      white-space: nowrap;
+      z-index: 10;
+    }
+    .day-label.left {
+      left: -120px;
+      text-align: right;
+    }
+    .day-label.right {
+      left: calc(100% + 12px); /* next to the first node */
+      text-align: left;
     }
   </style>
 </head>
 <body>
 
-<div class="container">
+  <div class="container">
+    <div class="rightbox">
+      <div class="timeline-wrapper">
 
-  <div class="rightbox">
-    <div class="rb-container">
-      <ul class="rb">
-        <li class="rb-item">
-          <div class="timestamp">
-            3rd May 2020<br> 7:00 PM
+        <!-- LEFT: Day 1 -->
+        <div class="day-column left-day">
+          <div class="rb-container">
+            <ul class="rb">
+              <li class="rb-item">
+                <div class="day-label left">Day 1 (30/10/2025)</div>
+                <div class="timestamp">8:00 AM</div>
+                <div class="item-title">Registration</div>
+              </li>
+              <li class="rb-item">
+                <div class="timestamp">9:00 AM</div>
+                <div class="item-title">Introduction to quantum information and quantum computing</div>
+              </li>
+              <li class="rb-item">
+                <div class="timestamp">12:00 PM</div>
+                <div class="item-title">Lunch break</div>
+              </li>
+              <li class="rb-item">
+                <div class="timestamp">1:30 PM</div>
+                <div class="item-title">Deutsch-Jozsa algorithm</div>
+              </li>
+              <li class="rb-item">
+                <div class="timestamp">4:30 PM</div>
+                <div class="item-title">End of Day 1</div>
+              </li>
+            </ul>
           </div>
-          <div class="item-title">Chris Serrano posted a photo on your wall.</div>
-        </li>
-        <li class="rb-item">
-          <div class="timestamp">
-            19th May 2020<br> 3:00 PM
-          </div>
-          <div class="item-title">Mia Redwood commented on your last post.</div>
-        </li>
-        <li class="rb-item">
-          <div class="timestamp">
-            17th June 2020<br> 7:00 PM
-          </div>
-          <div class="item-title">Lucas McAlister just sent you a message.</div>
-        </li>
-      </ul>
-    </div>
-  </div>
+        </div>
 
-</div>
+        <!-- RIGHT: Day 2 -->
+        <div class="day-column right-day">
+          <div class="rb-container">
+            <ul class="rb">
+              <li class="rb-item">
+                <div class="day-label right">Day 2 (31/10/2025)</div>
+                <div class="timestamp">9:00 AM</div>
+                <div class="item-title">Shor's algorithm</div>
+              </li>
+              <li class="rb-item">
+                <div class="timestamp">12:00 PM</div>
+                <div class="item-title">Lunch break and prayer time</div>
+              </li>
+              <li class="rb-item">
+                <div class="timestamp">3:00 PM</div>
+                <div class="item-title">Expert talk 1</div>
+              </li>
+              <li class="rb-item">
+                <div class="timestamp">3:45 PM</div>
+                <div class="item-title">Expert talk 2</div>
+              </li>
+              <li class="rb-item">
+                <div class="timestamp">4:30 PM</div>
+                <div class="item-title">End of Day 2</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div><!-- /.timeline-wrapper -->
+    </div><!-- /.rightbox -->
+  </div><!-- /.container -->
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const items = document.querySelectorAll(".rb-container ul.rb li");
+
+      function isInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return (
+          rect.top < (window.innerHeight || document.documentElement.clientHeight) &&
+          rect.bottom > 0
+        );
+      }
+
+      function callbackFunc() {
+        for (let i = 0; i < items.length; i++) {
+          if (isInViewport(items[i])) {
+            items[i].classList.add("in-view");
+          } else {
+            items[i].classList.remove("in-view"); // reset when scrolled out
+          }
+        }
+      }
+
+      window.addEventListener("load", callbackFunc);
+      window.addEventListener("resize", callbackFunc);
+      window.addEventListener("scroll", callbackFunc);
+    });
+  </script>
 
 </body>
 </html>
-
-
