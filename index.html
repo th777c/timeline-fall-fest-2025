@@ -7,152 +7,266 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@700&family=IBM+Plex+Sans+Condensed&display=swap" rel="stylesheet">
 
-  <!-- Font Awesome -->
+  <!-- Font Awesome (icons) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
     body {
       background: #000; /* Black background */
+      /* For galaxy effect, uncomment this: */
+      /* background: url('https://images.unsplash.com/photo-1446776811953-b23d57bd21aa') no-repeat center center fixed;
+      background-size: cover; */
       font-family: "IBM Plex Sans", sans-serif;
-      margin: 0;
-      padding: 0;
     }
 
     .container {
+      background: rgba(0,0,0,1); /* semi-transparent black for contrast */
       width: 100%;
+      height: 100%;
       margin: 0 auto;
       position: relative;
-      padding: 2rem 0;
+      margin-top: 10%;
+      box-shadow: 2px 5px 20px rgba(255, 255, 255, 0.2);
+    }
+
+    .leftbox {
+      top: -5%;
+      left: 5%;
+      position: absolute;
+      width: 15%;
+      height: 110%;
+      background-color: #111;
+      box-shadow: 3px 3px 15px rgba(255, 255, 255, 0.1);
+    }
+
+    nav {
+      margin: 2.6em auto;
+    }
+
+    nav a {
+      list-style: none;
+      padding: 35px;
+      color: #fff;
+      font-size: 1.1em;
+      display: block;
+      transition: all 0.5s ease-in-out;
     }
 
     .rightbox {
-      width: 100%;
+      padding: 0em 10rem 0em 0em;
+      height: 100%;
     }
 
-    .timeline-wrapper {
-      display: flex;
-      gap: 40px;
-      justify-content: center;
-      max-width: 1100px;
-      margin: 0 auto;
-      box-sizing: border-box;
-    }
-
-    .day-column {
-      width: 48%;
+    .rb-container {
+      width: 80%;
+      margin: auto;
+      display: block;
       position: relative;
     }
 
     .rb-container ul.rb {
-      margin: 0;
+      margin: 2.5em 0;
       padding: 0;
+      display: inline-block;
+    }
+
+    .rb-container ul.rb li {
       list-style: none;
-    }
-
-    ul.rb li {
-      position: relative;
+      margin: auto;
+      margin-left: 10em;
       min-height: 50px;
-      margin-bottom: 36px;
-      overflow: visible;
+      /*border-left: 1px dashed #fff;*/
+      padding: 0 0 50px 30px;
+      position: relative;
     }
 
-    /* LEFT column (Day 1) */
-    .left-day ul.rb li {
-      border-left: 1px dashed #fff;
-      padding-left: 30px;
+    .rb-container ul.rb li:last-child {
+      border-left: 0;
     }
-    .left-day ul.rb li::before {
+
+    .rb-container ul.rb li::before {
       position: absolute;
       left: -12px;
-      top: 0;
-      content: "";
-      border: 2px solid #fff;
-      border-radius: 50%;
-      background: #000;
+      top: -1px;
+      content: " ";
+      border: 2px solid rgba(255, 255, 255, 1);
+      border-radius: 500%;
+      background: #000; /* Node color (change this for different effect) */
       height: 20px;
       width: 20px;
       transition: all 500ms ease-in-out;
     }
-    .left-day ul.rb li:last-child {
-      border-left: none;
-    }
 
-    /* RIGHT column (Day 2) */
-    .right-day ul.rb li {
-      border-right: 1px dashed #fff;
-      padding-right: 30px;
-      text-align: right;
-    }
-    .right-day ul.rb li::before {
-      position: absolute;
-      right: -12px;
-      left: auto;
-      top: 0;
-      content: "";
-      border: 2px solid #fff; 
-      border-radius: 50%;
-      background: #000;
-      height: 20px;
-      width: 20px;
-      transition: all 500ms ease-in-out;
-    }
-    .right-day ul.rb li:last-child {
-      border-right: none;
-    }
-
-    /* Fade-in effect */
-    ul.rb li .timestamp,
-    ul.rb li .item-title {
-      opacity: 0.2;
-      transform: translateY(20px);
-      transition: all 800ms ease-in-out;
-    }
-    ul.rb li.in-view .timestamp,
-    ul.rb li.in-view .item-title {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Node highlight when in view */
-    ul.rb li.in-view::before {
+    .rb-container ul.rb li.in-view::before {
       background: #fff;
       border-color: #111;
       opacity: 1;
     }
 
-    /* Timestamp and title font */
     ul.rb li .timestamp {
       color: #fff;
       font-family: "IBM Plex Sans", sans-serif;
       font-weight: 700;
       font-size: 15px;
     }
+
     .item-title {
       color: #fff;
       font-family: "IBM Plex Sans Condensed", sans-serif;
       font-size: 13px;
     }
 
-    /* Day labels */
     .day-label {
       position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
+      left: -200px;   
+      top: 0px;      
+      width: 120px;   
+      text-align: right;
       font-family: "IBM Plex Sans", sans-serif;
       font-weight: 700;
-      font-size: 16px;
+      font-size: 20px;
       color: #fff;
       white-space: nowrap;
-      z-index: 10;
     }
-    .day-label.left {
-      left: -120px;
-      text-align: right;
+
+.day-label.left {
+  left: -200px;   
+  top:-2px;
+  text-align: right;
+}
+
+.day-label.right {
+  right: -100px;  
+  top:-2px;
+  text-align: left;
+}
+/* make sure each li is a positioning context & not clipped */
+ul.rb li { position: relative; overflow: visible; }
+
+/* Label to the right of the node on the right column */
+.right-day ul.rb li:first-child .day-label {
+  position: absolute;
+  left: 250px; /* place just outside li */
+  top: -2px;
+  white-space: nowrap;
+  text-align: left;
+  z-index: 10;
+  font-weight: 700;
+  color: #fff;
+}
+
+    ul.rb li .timestamp,
+    .item-title {
+      opacity: 0.2;              
+      transform: translateY(20px); 
+      transition: all 800ms ease-in-out;
     }
-    .day-label.right {
-      left: calc(100% + 12px); /* next to the first node */
-      text-align: left;
+
+    ul.rb li.in-view .timestamp,
+    ul.rb li.in-view .item-title {
+      opacity: 1;
+      transform: translateY(0);
     }
+
+
+/* container for two day columns */
+.timeline-wrapper {
+  display: flex;
+  gap: 40px;            /* space between the two days */
+  justify-content: center;
+  max-width: 1100px;
+  margin: 2rem auto;
+  box-sizing: border-box;
+}
+
+/* each day column */
+.day-column {
+  width: 48%;
+  position: relative;
+}
+
+/* heading above each column */
+.day-heading {
+  text-align: center;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+/* base UL style (keep existing ul.rb rules if you have them) */
+ul.rb { margin: 0; padding: 0; list-style: none; }
+
+/* each item */
+ul.rb li {
+  position: relative;
+  min-height: 50px;
+  margin-bottom: 36px;
+}
+
+/* LEFT column (Day 1) - same as your old style */
+.left-day ul.rb li {
+  border-left: 1px dashed #fff;
+  padding-left: 30px;
+}
+.left-day ul.rb li::before {
+  position: absolute;
+  left: -12px;
+  top: 0;
+  content: "";
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: #000;
+  height: 20px;
+  width: 20px;
+  transition: all 500ms ease-in-out;
+}
+
+/* RIGHT column (Day 2) - mirrored */
+.right-day ul.rb li {
+  border-right: 1px dashed #fff;
+  padding-right: 30px;
+  text-align: right;
+}
+.right-day ul.rb li::before {
+  position: absolute;
+  right: -12px;   /* node placed to the right */
+  left: auto;
+  top: 0;
+  content: "";
+  border: 2px solid #fff; 
+  border-radius: 50%;
+  background: #000;
+  height: 20px;
+  width: 20px;
+  transition: all 500ms ease-in-out;
+}
+
+/* fade-in CSS (should match your current in-view rules) */
+ul.rb li .timestamp,
+ul.rb li .item-title {
+  opacity: 0.2;
+  transform: translateY(20px);
+  transition: all 800ms ease-in-out;
+}
+
+ul.rb li.in-view .timestamp,
+ul.rb li.in-view .item-title {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* make node change when in-view (works for both left & right because ::before on li) */
+ul.rb li.in-view::before {
+  background: #fff;
+  border-color: #111;
+  opacity: 1;
+}
+
+.right-day ul.rb li:last-child {
+  border-right: none;
+}
   </style>
 </head>
 <body>
@@ -253,3 +367,4 @@
 
 </body>
 </html>
+
