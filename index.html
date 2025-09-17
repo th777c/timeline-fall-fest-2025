@@ -91,7 +91,7 @@
       content: " ";
       border: 2px solid rgba(255, 255, 255, 1);
       border-radius: 500%;
-      background: #000; /* Node color (change this for different effect) */
+      background: #000;
       height: 20px;
       width: 20px;
       transition: all 500ms ease-in-out;
@@ -140,10 +140,8 @@
   top:-2px;
   text-align: left;
 }
-/* make sure each li is a positioning context & not clipped */
 ul.rb li { position: relative; overflow: visible; }
 
-/* Label to the right of the node on the right column */
 .right-day ul.rb li:first-child .day-label {
   position: absolute;
   left: 250px; /* place just outside li */
@@ -169,23 +167,20 @@ ul.rb li { position: relative; overflow: visible; }
     }
 
 
-/* container for two day columns */
 .timeline-wrapper {
   display: flex;
-  gap: 40px;            /* space between the two days */
+  gap: 40px;          
   justify-content: center;
   max-width: 1100px;
   margin: 2rem auto;
   box-sizing: border-box;
 }
 
-/* each day column */
 .day-column {
   width: 48%;
   position: relative;
 }
 
-/* heading above each column */
 .day-heading {
   text-align: center;
   font-family: "IBM Plex Sans", sans-serif;
@@ -195,17 +190,14 @@ ul.rb li { position: relative; overflow: visible; }
   margin-bottom: 12px;
 }
 
-/* base UL style (keep existing ul.rb rules if you have them) */
 ul.rb { margin: 0; padding: 0; list-style: none; }
 
-/* each item */
 ul.rb li {
   position: relative;
   min-height: 50px;
   margin-bottom: 36px;
 }
 
-/* LEFT column (Day 1) - same as your old style */
 .left-day ul.rb li {
   border-left: 1px dashed #fff;
   padding-left: 30px;
@@ -223,7 +215,6 @@ ul.rb li {
   transition: all 500ms ease-in-out;
 }
 
-/* RIGHT column (Day 2) - mirrored */
 .right-day ul.rb li {
   border-right: 1px dashed #fff;
   padding-right: 30px;
@@ -231,7 +222,7 @@ ul.rb li {
 }
 .right-day ul.rb li::before {
   position: absolute;
-  right: -12px;   /* node placed to the right */
+  right: -12px; 
   left: auto;
   top: 0;
   content: "";
@@ -243,7 +234,6 @@ ul.rb li {
   transition: all 500ms ease-in-out;
 }
 
-/* fade-in CSS (should match your current in-view rules) */
 ul.rb li .timestamp,
 ul.rb li .item-title {
   opacity: 0.2;
@@ -257,7 +247,6 @@ ul.rb li.in-view .item-title {
   transform: translateY(0);
 }
 
-/* make node change when in-view (works for both left & right because ::before on li) */
 ul.rb li.in-view::before {
   background: #fff;
   border-color: #111;
@@ -272,70 +261,70 @@ ul.rb li.in-view::before {
 <body>
 
   <div class="container">
-    <div class="rightbox">
-      <div class="timeline-wrapper">
 
-        <!-- LEFT: Day 1 -->
-        <div class="day-column left-day">
-          <div class="rb-container">
-            <ul class="rb">
-              <li class="rb-item">
-                <div class="day-label left">Day 1 (30/10/2025)</div>
-                <div class="timestamp">8:00 AM</div>
-                <div class="item-title">Registration</div>
-              </li>
-              <li class="rb-item">
-                <div class="timestamp">9:00 AM</div>
-                <div class="item-title">Introduction to quantum information and quantum computing</div>
-              </li>
-              <li class="rb-item">
-                <div class="timestamp">12:00 PM</div>
-                <div class="item-title">Lunch break</div>
-              </li>
-              <li class="rb-item">
-                <div class="timestamp">1:30 PM</div>
-                <div class="item-title">Deutsch-Jozsa algorithm</div>
-              </li>
-              <li class="rb-item">
-                <div class="timestamp">4:30 PM</div>
-                <div class="item-title">End of Day 1</div>
-              </li>
-            </ul>
-          </div>
-        </div>
+<div class="rightbox">
+  <div class="timeline-wrapper">
 
-        <!-- RIGHT: Day 2 -->
-        <div class="day-column right-day">
-          <div class="rb-container">
-            <ul class="rb">
-              <li class="rb-item">
-                <div class="day-label right">Day 2 (31/10/2025)</div>
-                <div class="timestamp">9:00 AM</div>
-                <div class="item-title">Shor's algorithm</div>
-              </li>
-              <li class="rb-item">
-                <div class="timestamp">12:00 PM</div>
-                <div class="item-title">Lunch break and prayer time</div>
-              </li>
-              <li class="rb-item">
-                <div class="timestamp">3:00 PM</div>
-                <div class="item-title">Expert talk 1</div>
-              </li>
-              <li class="rb-item">
-                <div class="timestamp">3:45 PM</div>
-                <div class="item-title">Expert talk 2</div>
-              </li>
-              <li class="rb-item">
-                <div class="timestamp">4:30 PM</div>
-                <div class="item-title">End of Day 2</div>
-              </li>
-            </ul>
-          </div>
-        </div>
+    <!-- LEFT: Day 1 -->
+    <div class="day-column left-day">
+      <div class="rb-container">
+        <ul class="rb">
+          <li class="rb-item">
+            <div class="day-label left">Day 1 (30/10/2025)</div>
+            <div class="timestamp">8:00 AM</div>
+            <div class="item-title">Registration</div>
+          </li>
+          <li class="rb-item">
+            <div class="timestamp">9:00 AM</div>
+            <div class="item-title">Introduction to quantum information and quantum computing</div>
+          </li>
+          <li class="rb-item">
+            <div class="timestamp">12:00 PM</div>
+            <div class="item-title">Lunch break</div>
+          </li>
+          <li class="rb-item">
+            <div class="timestamp">1:30 PM</div>
+            <div class="item-title">Deutsch-Jozsa algorithm</div>
+          </li>
+          <li class="rb-item">
+            <div class="timestamp">4:30 PM</div>
+            <div class="item-title">End of Day 1</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="day-column right-day">
+      <div class="rb-container">
+        <ul class="rb">
+          <!-- Add Day 2 items manually below -->
+          <li class="rb-item">
+            <div class="day-label right">Day 2 (31/10/2025)</div>
+            <div class="timestamp">9:00 AM</div>
+            <div class="item-title">Shor's algorithm</div>
+          </li>
+          <li class="rb-item">
+            <div class="timestamp">12:00 PM</div>
+            <div class="item-title">Lunch break and prayer time</div>
+          </li>
+          <li class="rb-item">
+            <div class="timestamp">3:00 PM</div>
+            <div class="item-title">Expert talk 1</div>
+          </li>
+          <li class="rb-item">
+            <div class="timestamp">3:45 PM</div>
+            <div class="item-title">Expert talk 2</div>
+          </li>
+          <li class="rb-item">
+            <div class="timestamp">4:30 PM</div>
+            <div class="item-title">End of Day 2</div>
+          </li>
+        </ul>
+      </div>
+    </div>
 
-      </div><!-- /.timeline-wrapper -->
-    </div><!-- /.rightbox -->
-  </div><!-- /.container -->
+  </div>
+</div>
+
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -367,4 +356,5 @@ ul.rb li.in-view::before {
 
 </body>
 </html>
+
 
